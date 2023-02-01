@@ -1,7 +1,5 @@
 import PySimpleGUI as sg
-import re
 
-# Define the window's contents
 
 
 def create_window(theme):
@@ -25,14 +23,6 @@ def create_window(theme):
     return sg.Window('Calculator', layout, finalize=True)
 
 
-def calculate(calculation):
-    calculation = re.sub('[a-zA-Z,:()" "]', '', calculation)
-    if calculation:
-        try:
-            return eval(calculation)
-        except Exception as e:
-            return e
-
 
 theme_menu = ['menu', ['Black', 'Reddit', 'Python',
                        'DarkAmber', 'SystemDefault', 'random']]
@@ -52,25 +42,24 @@ while True:
         current_num.append(event)
         num_string = ''.join(current_num)
         cfexp = full_expression.copy() + [num_string]
-        window['out'].update(''.join(cfexp))
+        window['out'].update(' '.join(cfexp))
     if event in '+-*/':
         full_expression.append(num_string)
         full_expression.append(event)
         current_num = []
-        window['out'].update(''.join(full_expression))
+        window['out'].update(' '.join(full_expression))
     if event == '=':
         full_expression.append(num_string)
         full_expression.append(event)
         current_num = []
         window['out'].update(''.join(full_expression))
-        window['out'].update(calculate(''.join(full_expression)))
+        window['out'].update(eval(''.join(full_expression)))
         full_expression = []
     if event == 'Enter':
         full_expression.append(num_string)
-        full_expression.append(event)
         current_num = []
         window['out'].update(''.join(full_expression))
-        window['out'].update(calculate(''.join(full_expression)))
+        window['out'].update(eval(''.join(full_expression)))
         full_expression = []
     if event == 'clear':
         current_num = []
