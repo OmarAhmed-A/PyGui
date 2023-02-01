@@ -5,7 +5,7 @@ def create_window():
 	sg.theme('black')
 	layout = [
 		[sg.Push(), sg.Image('stopwatch\cross.png', pad = 0, enable_events = True, key = '-CLOSE-', tooltip = 'Close')],
-		[sg.Text('SW', font = 'Young 50', key = '-TIME-')],
+		[sg.Text('', font = 'Young 50', key = '-TIME-')],
 		[
 			sg.Button('Start', button_color = ('#FFFFFF','#FF0000'), border_width = 0, key = '-STARTSTOP-'),
 			sg.Button('Lap', button_color = ('#FFFFFF','#FF0000'), border_width = 0, key = '-LAP-', visible = False)
