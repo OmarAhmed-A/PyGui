@@ -14,14 +14,14 @@ menu_layout = [
 	['Add',smileys]
 ]
 
-sg.theme('GrayGrayGray')
+sg.theme('black')
 layout = [
 	[sg.Menu(menu_layout)],
 	[sg.Text('Untitled', key = '-DOCNAME-')],
-	[sg.Multiline(no_scrollbar = True, size = (40,30), key = '-TEXTBOX-')]
+	[sg.Multiline( size = (40,30), key = '-TEXTBOX-', expand_x=True, expand_y=True)]
 ]
 
-window = sg.Window('Text Editor', layout)
+window = sg.Window('Text Editor', layout, resizable = True)
 
 while True:
 	event, values = window.read()
@@ -36,7 +36,7 @@ while True:
 			window['-DOCNAME-'].update(file_path.split('/')[-1])
 
 	if event == 'Save':
-		file_path = sg.popup_get_file('Save as',no_window = True, save_as = True) + '.txt'
+		file_path = sg.popup_get_file('Save as',no_window = True, save_as = True)
 		file = Path(file_path)
 		file.write_text(values['-TEXTBOX-'])
 		window['-DOCNAME-'].update(file_path.split('/')[-1])
