@@ -38,6 +38,9 @@ while True:
     if event in theme_menu[1]:
         window.close()
         window = create_window(event)
+        num_string = ''
+        current_num = []
+        full_expression = []
     if event in '1234567890.':
         current_num.append(event)
         num_string = ''.join(current_num)
@@ -52,19 +55,24 @@ while True:
         full_expression.append(num_string)
         full_expression.append(event)
         current_num = []
-        window['out'].update(''.join(full_expression))
-        window['out'].update(eval(''.join(full_expression)))
+        try:
+            result = eval(''.join(full_expression))
+            window['out'].update("{:.2f}".format(result))
+        except ZeroDivisionError:
+            window['out'].update("Error: Division by Zero")
         full_expression = []
     if event == 'Enter':
         full_expression.append(num_string)
         current_num = []
-        window['out'].update(''.join(full_expression))
-        window['out'].update(eval(''.join(full_expression)))
+        try:
+            result = eval(''.join(full_expression))
+            window['out'].update("{:.2f}".format(result))
+        except ZeroDivisionError:
+            window['out'].update("Error: Division by Zero")
         full_expression = []
     if event == 'clear':
         current_num = []
         full_expression = []
         window['out'].update('')
-
 
 window.close()
